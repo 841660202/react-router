@@ -23,6 +23,9 @@ export interface MemoryRouterProps {
   initialEntries?: InitialEntry[];
   initialIndex?: number;
 }
+// MemoryRouter
+// 主要用在ReactNative这种非浏览器的环境中，因此直接将URL的history保存在了内存中。 StaticRouter 主要用于服务端渲染。
+// @see https://www.lmlphp.com/user/60155/article/item/1561048/
 
 /**
  * A <Router> that stores all entries in memory.
@@ -138,7 +141,7 @@ export interface IndexRouteProps {
 
 /**
  * Declares an element that should be rendered at a certain URL path.
- *
+ * 声明在某个URL路径渲染的元素
  * @see https://reactrouter.com/docs/en/v6/components/route
  */
 export function Route(
@@ -162,10 +165,13 @@ export interface RouterProps {
 
 /**
  * Provides location context for the rest of the app.
- *
+ * 为应用程序的其余部分提供位置上下文。
  * Note: You usually won't render a <Router> directly. Instead, you'll render a
  * router that is more specific to your environment such as a <BrowserRouter>
  * in web browsers or a <StaticRouter> for server rendering.
+ * 注意：通常不会直接渲染<Router>。相反，您将渲染
+ * 更特定于您的环境的路由器，如<BrowserRouter>
+ * 在web浏览器中或用于服务器渲染的<StaticRouter>。
  *
  * @see https://reactrouter.com/docs/en/v6/routers/router
  */
@@ -246,7 +252,7 @@ export interface RoutesProps {
 /**
  * A container for a nested tree of <Route> elements that renders the branch
  * that best matches the current location.
- *
+ * 用于呈现与当前位置最匹配的分支的嵌套元素树的容器。
  * @see https://reactrouter.com/docs/en/v6/components/routes
  */
 export function Routes({

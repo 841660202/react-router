@@ -97,7 +97,7 @@ export interface RouteObject {
 
 /**
  * Returns a path with params interpolated.
- *
+ * 通过参数，返回路径
  * @see https://reactrouter.com/docs/en/v6/utils/generate-path
  */
 export function generatePath(path: string, params: Params = {}): string {
@@ -113,6 +113,7 @@ export function generatePath(path: string, params: Params = {}): string {
 
 /**
  * A RouteMatch contains info about how a route matched a URL.
+ * RouteMatch包含有关路由如何匹配URL的信息。
  */
 export interface RouteMatch<ParamKey extends string = string> {
   /**
@@ -135,7 +136,7 @@ export interface RouteMatch<ParamKey extends string = string> {
 
 /**
  * Matches the given routes to a location and returns the match data.
- *
+ * 将给定路由匹配到某个位置并返回匹配数据。
  * @see https://reactrouter.com/docs/en/v6/utils/match-routes
  */
 export function matchRoutes(
@@ -176,6 +177,7 @@ interface RouteBranch {
   routesMeta: RouteMeta[];
 }
 
+// 路由扁平化
 function flattenRoutes(
   routes: RouteObject[],
   branches: RouteBranch[] = [],
@@ -232,7 +234,7 @@ function flattenRoutes(
 function rankRouteBranches(branches: RouteBranch[]): void {
   branches.sort((a, b) =>
     a.score !== b.score
-      ? b.score - a.score // Higher score first
+      ? b.score - a.score // Higher score first // 高分靠前
       : compareIndexes(
           a.routesMeta.map((meta) => meta.childrenIndex),
           b.routesMeta.map((meta) => meta.childrenIndex)
@@ -334,6 +336,7 @@ function matchRouteBranch<ParamKey extends string = string>(
 
 /**
  * A PathPattern is used to match on some portion of a URL pathname.
+ * 路径模式用于匹配URL路径名的某些部分。
  */
 export interface PathPattern<Path extends string = string> {
   /**
@@ -355,6 +358,7 @@ export interface PathPattern<Path extends string = string> {
 
 /**
  * A PathMatch contains info about how a PathPattern matched on a URL pathname.
+ * PathMatch包含有关路径模式如何匹配URL路径名的信息。
  */
 export interface PathMatch<ParamKey extends string = string> {
   /**
@@ -382,7 +386,7 @@ type Mutable<T> = {
 /**
  * Performs pattern matching on a URL pathname and returns information about
  * the match.
- *
+ * 对URL路径名执行模式匹配，并返回有关匹配的信息。
  * @see https://reactrouter.com/docs/en/v6/utils/match-path
  */
 export function matchPath<
@@ -435,7 +439,7 @@ export function matchPath<
     pattern,
   };
 }
-
+// 编译路径
 function compilePath(
   path: string,
   caseSensitive = false,
@@ -483,7 +487,7 @@ function compilePath(
 
   return [matcher, paramNames];
 }
-
+// 安全解码操作
 function safelyDecodeURIComponent(value: string, paramName: string) {
   try {
     return decodeURIComponent(value);
@@ -501,7 +505,7 @@ function safelyDecodeURIComponent(value: string, paramName: string) {
 
 /**
  * Returns a resolved path object relative to the given pathname.
- *
+ * 返回一个相对于给定路径名的解析路径对象
  * @see https://reactrouter.com/docs/en/v6/utils/resolve-path
  */
 export function resolvePath(to: To, fromPathname = "/"): Path {
@@ -509,7 +513,7 @@ export function resolvePath(to: To, fromPathname = "/"): Path {
     pathname: toPathname,
     search = "",
     hash = "",
-  } = typeof to === "string" ? parsePath(to) : to;
+  } = typeof to === "string" ? parsePath(to) : to; // history/parsePath
 
   let pathname = toPathname
     ? toPathname.startsWith("/")
@@ -628,13 +632,13 @@ export const joinPaths = (paths: string[]): string =>
 
 export const normalizePathname = (pathname: string): string =>
   pathname.replace(/\/+$/, "").replace(/^\/*/, "/");
-
+// 规范化查询条件
 const normalizeSearch = (search: string): string =>
   !search || search === "?"
     ? ""
     : search.startsWith("?")
     ? search
     : "?" + search;
-
+// 规范化 hask
 const normalizeHash = (hash: string): string =>
   !hash || hash === "#" ? "" : hash.startsWith("#") ? hash : "#" + hash;

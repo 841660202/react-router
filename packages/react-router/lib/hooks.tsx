@@ -54,8 +54,8 @@ export function useHref(to: To): string {
 
 /**
  * Returns true if this component is a descendant of a <Router>.
- *
- * @see https://reactrouter.com/docs/en/v6/hooks/use-in-router-context
+ * 如果此组件是<Router>的后代，则返回true。
+ * @see  https://reactrouter.com/docs/en/v6/hooks/use-in-router-context
  */
 export function useInRouterContext(): boolean {
   return React.useContext(LocationContext) != null;
@@ -207,7 +207,7 @@ export function useOutletContext<Context = unknown>(): Context {
 /**
  * Returns the element for the child route at this level of the route
  * hierarchy. Used internally by <Outlet> to render child routes.
- *
+ * 返回路由层次结构此级别的子路由的元素。由<Outlet>内部使用以渲染子路由。
  * @see https://reactrouter.com/docs/en/v6/hooks/use-outlet
  */
 export function useOutlet(context?: unknown): React.ReactElement | null {
@@ -223,7 +223,8 @@ export function useOutlet(context?: unknown): React.ReactElement | null {
 /**
  * Returns an object of key/value pairs of the dynamic params from the current
  * URL that were matched by the route path.
- *
+ * 返回由路由路径匹配的当前URL中的动态参数的键/值对组成的对象。
+ * 
  * @see https://reactrouter.com/docs/en/v6/hooks/use-params
  */
 export function useParams<
@@ -232,7 +233,13 @@ export function useParams<
   [ParamsOrKey] extends [string] ? Params<ParamsOrKey> : Partial<ParamsOrKey>
 > {
   let { matches } = React.useContext(RouteContext);
-  let routeMatch = matches[matches.length - 1];
+  let routeMatch = matches[matches.length - 1]; 
+  // 最后一个就是当前页面对应参数：怎么理解
+  // 1. push情况，最后一个是当前页面
+  // 2. replace情况，最后一个是当前页面
+  // 3. pop 返回情况，最后一个是当前页面
+
+  // 所以最后一个就是当前页面
   return routeMatch ? (routeMatch.params as any) : {};
 }
 

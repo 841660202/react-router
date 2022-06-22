@@ -11,6 +11,9 @@ export interface StaticRouterProps {
 /**
  * A <Router> that may not transition to any other location. This is useful
  * on the server where there is no stateful UI.
+ * 
+ * 一种不能转换到任何其他位置的<路由器>。这很有用
+ * 在没有状态UI的服务器上
  */
 export function StaticRouter({
   basename,
@@ -18,6 +21,7 @@ export function StaticRouter({
   location: locationProp = "/",
 }: StaticRouterProps) {
   if (typeof locationProp === "string") {
+    // parsePath @link https://github.com/remix-run/history/blob/dev/docs/getting-started.md#utilities
     locationProp = parsePath(locationProp);
   }
 

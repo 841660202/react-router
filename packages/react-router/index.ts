@@ -90,12 +90,22 @@ export {
   Route,
   Router,
   Routes,
-  createPath,
   createRoutesFromChildren,
   generatePath,
   matchPath,
   matchRoutes,
+  // @link: https://github.com/remix-run/history/blob/dev/docs/getting-started.md#utilities
   parsePath,
+  //   let pathPieces = parsePath("/the/path?the=query#the-hash");
+  // // pathPieces = {
+    // //   pathname: '/the/path',
+    // //   search: '?the=query',
+    // //   hash: '#the-hash'
+    // // }
+  createPath,
+
+// let path = createPath(pathPieces);
+// // path = '/the/path?the=query#the-hash'
   renderMatches,
   resolvePath,
   useHref,
